@@ -55,7 +55,7 @@ class Home extends StatelessWidget {
           Expanded(
               child: CarouselSlider(
             options: CarouselOptions(
-                height: 200.0, enlargeCenterPage: true, aspectRatio: 2.0),
+                height: 200.0, enlargeCenterPage: true),
             items: [1, 2, 3, 4, 5].map((i) {
               return Builder(
                 builder: (BuildContext context) {
@@ -64,7 +64,24 @@ class Home extends StatelessWidget {
               );
             }).toList(),
           )),
-          Expanded(child: ListView.builder(itemBuilder: (context, index) {
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                child: Text(
+                  "Transactions",
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              Spacer(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+                child:  Icon(Icons.more_horiz),
+              ),
+
+            ],
+          ),
+          Expanded(child: ListView.builder(itemCount:10,itemBuilder: (context, index) {
             return TransactionWidget();
           }))
         ],
