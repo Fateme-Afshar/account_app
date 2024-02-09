@@ -1,5 +1,6 @@
 [
     {
+        "id":0,
         "title": "Sale of Painting",
         "content": "Original landscape painting sold.",
         "amount": 200,
@@ -8,6 +9,7 @@
         "isIncrease": false
     },
     {
+        "id":1,
         "title": "Purchase of Art Supplies",
         "content": "Bought new brushes and acrylic paints.",
         "amount": 75,
@@ -16,6 +18,7 @@
         "isIncrease": true
     },
     {
+        "id":2,
         "title": "Art Class Enrollment",
         "content": "Enrollment fees for beginner's art class.",
         "amount": 100,
@@ -24,6 +27,7 @@
         "isIncrease": true
     },
     {
+        "id":3,
         "title": "Commissioned Artwork",
         "content": "Commissioned to create a portrait.",
         "amount": 300,
@@ -32,6 +36,7 @@
         "isIncrease": false
     },
     {
+        "id":4,
         "title": "Graphic Design Workshop",
         "content": "Attended a workshop on advanced graphic design.",
         "amount": 150,
@@ -40,6 +45,7 @@
         "isIncrease": true
     },
     {
+        "id":5,
         "title": "Website Design Project",
         "content": "Payment for designing a business website.",
         "amount": 500,
@@ -48,6 +54,7 @@
         "isIncrease": false
     },
     {
+        "id":6,
         "title": "Art Gallery Visit",
         "content": "Ticket for special exhibition at the art gallery.",
         "amount": 40,
@@ -56,6 +63,7 @@
         "isIncrease": true
     },
     {
+        "id":7,
         "title": "Sculpture Sale",
         "content": "Sold a hand-crafted marble sculpture.",
         "amount": 350,

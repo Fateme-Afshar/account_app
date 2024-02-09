@@ -1,6 +1,11 @@
+import 'package:account_app/model/creditCard.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+import 'model/Transaction.dart';
+
+void main() async{
+
   runApp(const MyApp());
 }
 
