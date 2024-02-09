@@ -1,0 +1,66 @@
+[
+    {
+        "title": "Sale of Painting",
+        "content": "Original landscape painting sold.",
+        "amount": 200,
+        "date": "July 12, 2022",
+        "image": "https://example.com/images/landscape-painting.jpg",
+        "isIncrease": false
+    },
+    {
+        "title": "Purchase of Art Supplies",
+        "content": "Bought new brushes and acrylic paints.",
+        "amount": 75,
+        "date": "August 5, 2022",
+        "image": "https://example.com/images/art-supplies.jpg",
+        "isIncrease": true
+    },
+    {
+        "title": "Art Class Enrollment",
+        "content": "Enrollment fees for beginner's art class.",
+        "amount": 100,
+        "date": "September 1, 2022",
+        "image": "https://example.com/images/art-class.jpg",
+        "isIncrease": true
+    },
+    {
+        "title": "Commissioned Artwork",
+        "content": "Commissioned to create a portrait.",
+        "amount": 300,
+        "date": "October 15, 2022",
+        "image": "https://example.com/images/commissioned-portrait.jpg",
+        "isIncrease": false
+    },
+    {
+        "title": "Graphic Design Workshop",
+        "content": "Attended a workshop on advanced graphic design.",
+        "amount": 150,
+        "date": "November 3, 2022",
+        "image": "https://example.com/images/graphic-design-workshop.jpg",
+        "isIncrease": true
+    },
+    {
+        "title": "Website Design Project",
+        "content": "Payment for designing a business website.",
+        "amount": 500,
+        "date": "December 20, 2022",
+        "image": "https://example.com/images/website-design.jpg",
+        "isIncrease": false
+    },
+    {
+        "title": "Art Gallery Visit",
+        "content": "Ticket for special exhibition at the art gallery.",
+        "amount": 40,
+        "date": "January 15, 2023",
+        "image": "https://example.com/images/art-gallery.jpg",
+        "isIncrease": true
+    },
+    {
+        "title": "Sculpture Sale",
+        "content": "Sold a hand-crafted marble sculpture.",
+        "amount": 350,
+        "date": "February 5, 2023",
+        "image": "https://example.com/images/sculpture.jpg",
+        "isIncrease": false
+    }
+]
