@@ -1,9 +1,23 @@
+import 'package:account_app/data/database/appDatabase.dart';
+import 'package:account_app/di/setup.dart';
 import 'package:account_app/presenter/home.dart';
+import 'package:account_app/presenter/provider/credit_card_provider.dart';
+import 'package:account_app/presenter/provider/credit_card_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() async{
+final repository = getIt.get<CreditCardRepository>();
 
-  runApp(const MyApp());
+void main() async {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CreditCardProvider(),
+      child: MyApp(),
+    ),
+  );
+  await diSetup();
+  AppDatabase.initialDatabase();
+  repository.openCreditCardBox();
 }
 
 class MyApp extends StatelessWidget {
