@@ -1,8 +1,5 @@
-import 'package:account_app/model/creditCard.dart';
+import 'package:account_app/presenter/home.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
-
-import 'model/Transaction.dart';
 
 void main() async{
 
@@ -20,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Home(),
     );
   }
 }
