@@ -8,7 +8,7 @@ class CreditCardProvider with ChangeNotifier {
   final List<CreditCard> _cardList = [];
   final repository = getIt.get<CreditCardRepository>();
 
-  List<CreditCard> get cards => _cardList;
+  Iterable<CreditCard> get cards =>repository.getCreditCardsDb();
 
   void addCard(CreditCard creditCard) {
     if (repository.isRepetitiveCreditCardToDb(creditCard)) {

@@ -13,16 +13,16 @@ final repository = getIt.get<CreditCardRepository>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await diSetup();
+  await AppDatabase.initialDatabase();
+  Hive.registerAdapter(CreditCardAdapter());
+  await repository.openCreditCardBox();
   runApp(
     ChangeNotifierProvider(
       create: (context) => CreditCardProvider(),
       child: const MyApp(),
     ),
   );
-  await diSetup();
-  await AppDatabase.initialDatabase();
-  await repository.openCreditCardBox();
-  Hive.registerAdapter(CreditCardAdapter());
 }
 
 class MyApp extends StatelessWidget {

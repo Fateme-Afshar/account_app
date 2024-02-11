@@ -14,6 +14,10 @@ class CreditCardRepository {
     await box.add(creditCard);
   }
 
+  Iterable<CreditCard> getCreditCardsDb()  {
+    return box.values;
+  }
+
   bool isRepetitiveCreditCardToDb(CreditCard creditCard){
     return box.get(creditCard) == null ? true : false;
   }

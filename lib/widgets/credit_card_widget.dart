@@ -1,4 +1,5 @@
 import 'package:account_app/model/creditCard.dart';
+import 'package:account_app/widgets/custom_widget_build_methods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -35,27 +36,37 @@ class CreditCardWidget extends StatelessWidget {
                 height: 24,
               ),
               Spacer(),
-              Icon(Icons.more_horiz)
+              Icon(
+                Icons.more_horiz,
+                color: Colors.white,
+              )
             ],
           ),
           Expanded(
             child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: Text(
                 butifierCardNumber(creditCard.cardNumber!),
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: buildTextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ),
           ),
-           Row(
+          Row(
             children: [
-              Text(textAlign: TextAlign.center, "Card holder \n ${creditCard.name}"),
+              Text(
+                textAlign: TextAlign.center,
+                "Card holder \n ${creditCard.name}",
+                style: buildTextStyle(color: Colors.white),
+              ),
               Spacer(),
-              Text(textAlign: TextAlign.center, "Expity \n ${creditCard.dateExpire}"),
+              Text(
+                  textAlign: TextAlign.center,
+                  "Expity \n ${creditCard.dateExpire}",
+                  style: buildTextStyle(color: Colors.white)),
             ],
           )
         ],
