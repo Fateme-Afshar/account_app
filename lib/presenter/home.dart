@@ -5,30 +5,31 @@ import 'package:account_app/model/creditCard.dart';
 import 'package:account_app/presenter/provider/credit_card_provider.dart';
 import 'package:account_app/widgets/credit_card_widget.dart';
 import 'package:account_app/widgets/custom_input.dart';
+import 'package:account_app/widgets/custom_widget_build_methods.dart';
 import 'package:account_app/widgets/transaction_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  final transactionRepository=getIt.get<TransactionRepository>();
+  final transactionRepository = getIt.get<TransactionRepository>();
+
   @override
   Widget build(BuildContext context) {
     late String creditCardNumber;
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text('Credit Cards'),
         ),
         leading: IconButton(
-          icon: Icon(Icons.menu),
+          icon: const Icon(Icons.menu),
           onPressed: () {},
         ),
-        actions: <Widget>[
+        actions: const <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 12),
-            child: const CircleAvatar(
+            child: CircleAvatar(
               child: Image(image: AssetImage('assets/profile.png')),
             ),
           ),
@@ -37,14 +38,11 @@ class Home extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            margin: EdgeInsets.all(16),
+            margin: const EdgeInsets.fromLTRB(16, 8, 16, 0),
             child: Row(
               children: [
-                Text(
-                  "Cards",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                Spacer(),
+                buildTitle("Cards"),
+                const Spacer(),
                 TextButton(
                   onPressed: () {
                     showModalBottomSheet(
@@ -64,7 +62,7 @@ class Home extends StatelessWidget {
                                 onPressed: () {
                                   if (creditCardNumber.length != 16) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      const SnackBar(
                                         content:
                                             Text('Card number has 16 number.'),
                                         duration: Duration(seconds: 2),
@@ -79,14 +77,14 @@ class Home extends StatelessWidget {
                                             dateExpire: "2/2024"));
                                   }
                                 },
-                                child: Text("Add"),
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,
                                     foregroundColor: Colors.black,
-                                    textStyle: TextStyle(fontSize: 18),
+                                    textStyle: const TextStyle(fontSize: 18),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     )),
+                                child: const Text("Add"),
                               )
                             ],
                           ),
@@ -94,7 +92,7 @@ class Home extends StatelessWidget {
                       },
                     );
                   },
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Padding(
@@ -127,17 +125,14 @@ class Home extends StatelessWidget {
               );
             },
           )),
-          const Row(
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                child: Text(
-                  "Transactions",
-                  style: TextStyle(fontSize: 24),
-                ),
+                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                child: buildTitle("Transactions"),
               ),
-              Spacer(),
-              Padding(
+              const Spacer(),
+              const Padding(
                 padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
                 child: Icon(Icons.more_horiz),
               ),
@@ -148,18 +143,20 @@ class Home extends StatelessWidget {
             future: transactionRepository.decodeJsonStr(),
             builder: (BuildContext context,
                 AsyncSnapshot<List<Transaction>> snapshot) {
-              if(snapshot.hasData){
-                if(snapshot.data!.isNotEmpty){
+              if (snapshot.hasData) {
+                if (snapshot.data!.isNotEmpty) {
                   return ListView.builder(
                       itemCount: snapshot.data?.length,
                       itemBuilder: (context, index) {
-                        return TransactionWidget(transaction: snapshot.data![index],);
+                        return TransactionWidget(
+                          transaction: snapshot.data![index],
+                        );
                       });
-                }else{
-                  return Text("Nothing to show");
+                } else {
+                  return const Text("Nothing to show");
                 }
-              }else{
-                return Text("Nothing to show");
+              } else {
+                return const Text("Nothing to show");
               }
             },
           ))

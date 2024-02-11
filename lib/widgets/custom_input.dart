@@ -39,7 +39,6 @@ class CustomTextInput extends StatelessWidget {
           onChanged: onChanged,
           controller: null,
           keyboardType: textInputType,
-          style: TextStyle(fontFamily: 'ceraPro_bold'),
           obscureText:
           textInputType == TextInputType.visiblePassword ? true : false,
           decoration: InputDecoration.collapsed(
