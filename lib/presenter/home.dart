@@ -105,16 +105,22 @@ class Home extends StatelessWidget {
             ),
           ),
           Expanded(
-              child: CarouselSlider(
-            options: CarouselOptions(height: 200.0, enlargeCenterPage: true),
-            items: [1, 2, 3, 4, 5].map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return CreditCardWidget();
+              child: Consumer<CreditCardProvider>(
+                builder: (context,creditCardProvider,child){
+                  final creditCards=creditCardProvider.cards;
+
+                  return CarouselSlider(
+                    options: CarouselOptions(height: 200.0, enlargeCenterPage: true),
+                    items: creditCards.map((card) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return CreditCardWidget(creditCard: card,);
+                        },
+                      );
+                    }).toList(),
+                  );
                 },
-              );
-            }).toList(),
-          )),
+              )),
           const Row(
             children: [
               Padding(

@@ -6,7 +6,7 @@ import '../../model/creditCard.dart';
 class CreditCardRepository {
   late final Box<CreditCard> box;
 
-  void openCreditCardBox() async {
+  Future<void> openCreditCardBox() async {
     box = await AppDatabase.initialCreditCardBox();
   }
 
@@ -15,6 +15,6 @@ class CreditCardRepository {
   }
 
   bool isRepetitiveCreditCardToDb(CreditCard creditCard){
-    return box.get(creditCard) == null ? false : true;
+    return box.get(creditCard) == null ? true : false;
   }
 }

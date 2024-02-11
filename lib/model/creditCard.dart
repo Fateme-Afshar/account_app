@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:account_app/data/database/schema.dart';
 import 'package:hive/hive.dart';
+part 'creditCard.g.dart';
 
 CreditCard cardFromJson(String str) => CreditCard.fromJson(json.decode(str));
 
@@ -13,7 +14,7 @@ class CreditCard extends HiveObject {
     this.id,
     this.transactionId,
     this.name,
-    this.cardNumber,
+    required this.cardNumber,
     this.dateExpire,
     this.bankName,
   });
@@ -22,19 +23,19 @@ class CreditCard extends HiveObject {
     id = json['id'];
     transactionId = json['transactionId'];
     name = json['name'];
-    cardNumber = json['cardNumber'];
+    cardNumber = json['cardNumber']??"";
     dateExpire = json['dateExpire'];
     bankName = json['bankName'];
   }
 
   @HiveField(0)
-  num? id;
+  num? id=0;
   @HiveField(1)
   num? transactionId;
   @HiveField(2)
   String? name;
   @HiveField(3)
-  String? cardNumber;
+  String cardNumber="";
   @HiveField(4)
   String? dateExpire;
   @HiveField(5)

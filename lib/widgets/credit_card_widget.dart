@@ -1,7 +1,12 @@
+import 'package:account_app/model/creditCard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreditCardWidget extends StatelessWidget {
+  final CreditCard creditCard;
+
+  const CreditCardWidget({super.key, required this.creditCard});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +16,7 @@ class CreditCardWidget extends StatelessWidget {
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
@@ -20,9 +25,9 @@ class CreditCardWidget extends StatelessWidget {
           ],
         ),
       ),
-      child: const Column(
+      child: Column(
         children: [
-          Row(
+          const Row(
             children: [
               Image(
                 image: AssetImage('assets/bank_account.png'),
@@ -37,24 +42,32 @@ class CreditCardWidget extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "6037 9975 8798 1243",
+                butifierCardNumber(creditCard.cardNumber!),
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
-          Row(
+           Row(
             children: [
-              Text(textAlign: TextAlign.center,"Card holder \n Fateme Afshar"),
+              Text(textAlign: TextAlign.center, "Card holder \n ${creditCard.name}"),
               Spacer(),
-              Text(textAlign: TextAlign.center,"Expity \n 2/2024"),
+              Text(textAlign: TextAlign.center, "Expity \n ${creditCard.dateExpire}"),
             ],
           )
         ],
       ),
     );
+  }
+
+  String butifierCardNumber(String cardNumber) {
+    if (cardNumber.isNotEmpty) {
+      return cardNumber.replaceAllMapped(
+          RegExp(r'.{1,4}'), (Match match) => "${match.group(0)} ");
+    }
+    return "";
   }
 }

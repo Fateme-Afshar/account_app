@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:account_app/data/database/schema.dart';
 import 'package:hive/hive.dart';
 
+
 Transaction transactionFromJson(String str) =>
     Transaction.fromJson(json.decode(str));
 

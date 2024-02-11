@@ -13,7 +13,7 @@ class CreditCardProvider with ChangeNotifier {
   void addCard(CreditCard creditCard) {
     if (repository.isRepetitiveCreditCardToDb(creditCard)) {
       _cardList.add(creditCard);
-      //repository.addCreditCardToDb(creditCard);
+      repository.addCreditCardToDb(creditCard);
     }
     notifyListeners();
   }

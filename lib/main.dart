@@ -4,11 +4,16 @@ import 'package:account_app/presenter/home.dart';
 import 'package:account_app/presenter/provider/credit_card_provider.dart';
 import 'package:account_app/presenter/provider/credit_card_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:provider/provider.dart';
+
+import 'model/creditCard.dart';
+
 
 final repository = getIt.get<CreditCardRepository>();
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     ChangeNotifierProvider(
       create: (context) => CreditCardProvider(),
@@ -16,8 +21,9 @@ void main() async {
     ),
   );
   await diSetup();
-  AppDatabase.initialDatabase();
-  repository.openCreditCardBox();
+  await AppDatabase.initialDatabase();
+  await repository.openCreditCardBox();
+  Hive.registerAdapter(CreditCardAdapter());
 }
 
 class MyApp extends StatelessWidget {
