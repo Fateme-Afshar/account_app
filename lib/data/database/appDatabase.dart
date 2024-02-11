@@ -10,4 +10,7 @@ class AppDatabase {
 
   static Future<Box<CreditCard>> initialCreditCardBox() async =>
       await Hive.openBox<CreditCard>(CreditCardSchema.cardBoxName);
+
+  static Future<void> disposeCreditCardBox() async =>
+      await Hive.box<CreditCard>(CreditCardSchema.cardBoxName).close();
 }

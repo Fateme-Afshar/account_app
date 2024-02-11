@@ -1,9 +1,13 @@
 import 'package:account_app/data/repository/transaction_repository.dart';
 import 'package:account_app/di/setup.dart';
+import 'package:account_app/errorHandle/Error.dart';
+import 'package:account_app/errorHandle/ErrorTypes.dart';
+import 'package:account_app/errorHandle/Validation.dart';
 import 'package:account_app/model/transaction.dart';
 import 'package:account_app/model/creditCard.dart';
 import 'package:account_app/presenter/provider/credit_card_provider.dart';
 import 'package:account_app/widgets/credit_card_widget.dart';
+import 'package:account_app/widgets/custom_button.dart';
 import 'package:account_app/widgets/custom_input.dart';
 import 'package:account_app/widgets/custom_widget_build_methods.dart';
 import 'package:account_app/widgets/transaction_widget.dart';
@@ -16,7 +20,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late String creditCardNumber;
+    late String creditCardNumber="";
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -53,39 +57,33 @@ class Home extends StatelessWidget {
                           color: Colors.white,
                           child: Column(
                             children: [
-                              CustomTextInput(
-                                  hint: "Card number",
-                                  onChanged: (value) {
-                                    creditCardNumber = value;
-                                  }),
-                              ElevatedButton(
-                                onPressed: () {
-                                  if (creditCardNumber.length != 16) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content:
-                                            Text('Card number has 16 number.'),
-                                        duration: Duration(seconds: 2),
-                                      ),
-                                    );
-                                  } else {
-                                    Provider.of<CreditCardProvider>(context,
-                                            listen: false)
-                                        .addCard(CreditCard(
-                                            name: "Fateme Afshar",
-                                            cardNumber: creditCardNumber,
-                                            dateExpire: "2/2024"));
-                                  }
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.black,
-                                    textStyle: const TextStyle(fontSize: 18),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                                child: const Text("Add"),
-                              )
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(0, 4, 0, 8),
+                                child: CustomTextInput(
+                                    hint: "Card number",
+                                    textInputType: TextInputType.number,
+                                    onChanged: (value) {
+                                      creditCardNumber = value;
+                                    }),
+                              ),
+                              MyButton(
+                                  onPress: () {
+                                    ErrorType? errorType =
+                                        validation(creditCardNumber);
+                                    if (errorType != null) {
+                                      showSnackbar(context,
+                                          MyError(errorType: errorType).errorMessage());
+                                    } else {
+                                      Provider.of<CreditCardProvider>(context,
+                                              listen: false)
+                                          .addCard(CreditCard(
+                                              name: "Fateme Afshar",
+                                              cardNumber: creditCardNumber,
+                                              dateExpire: "2/2024"));
+                                      Navigator.pop(context);
+                                    }
+                                  },
+                                  text: const Text("Add"))
                             ],
                           ),
                         );
@@ -109,7 +107,16 @@ class Home extends StatelessWidget {
           Expanded(child: Consumer<CreditCardProvider>(
             builder: (context, creditCardProvider, child) {
               final creditCards = creditCardProvider.cards;
-
+              if (creditCards.isEmpty) {
+                return Center(
+                  child: Text(
+                    "Add your card.",
+                    style: buildTextStyle(
+                        color: Color.fromARGB(255, 124, 156, 185),
+                        fontSize: 24),
+                  ),
+                );
+              }
               return CarouselSlider(
                 options:
                     CarouselOptions(height: 200.0, enlargeCenterPage: true),
@@ -128,13 +135,16 @@ class Home extends StatelessWidget {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
                 child: buildTitle("Transactions"),
               ),
               const Spacer(),
               const Padding(
-                padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
-                child: Icon(Icons.more_horiz),
+                padding: EdgeInsets.fromLTRB(0, 0, 16, 0),
+                child: Icon(
+                  Icons.more_horiz,
+                  color: Color.fromARGB(255, 124, 156, 185),
+                ),
               ),
             ],
           ),
@@ -164,4 +174,31 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  }
+
+  ErrorType? validation(String creditCardNumber) {
+    if (!Validation.isEmptyInputs(creditCardNumber)) {
+      if (Validation.isValidCardNumberChar(creditCardNumber)) {
+        if (Validation.isValidCardNumberLength(creditCardNumber)) {
+          return null;
+        } else {
+          return ErrorType.INVALID_CARD_LENGTH;
+        }
+      } else {
+        return ErrorType.INVALID_INPUT;
+      }
+    } else {
+      return ErrorType.EMPTY_INPUTS;
+    }
+  }
+
+
 }

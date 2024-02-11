@@ -27,8 +27,8 @@ class CustomTextInput extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           boxShadow: [
             BoxShadow(
-              color: Colors.black,
-              blurRadius: 1.0,
+              color: Color.fromARGB(255, 124, 156, 185),
+              blurRadius: 8.0,
               spreadRadius: 0.0,
               offset: Offset(1.0, 1.0),
             )

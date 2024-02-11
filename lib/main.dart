@@ -42,8 +42,13 @@ class MyApp extends StatelessWidget {
                   fontSize: 24,
               ),
               iconTheme: IconThemeData(
+                shadows: null,
                   color: Color.fromARGB(255, 124, 156, 185), size: 30))),
       home: Home(),
     );
+  }
+
+  void dispose() {
+    Hive.close();
   }
 }

@@ -1,0 +1,5 @@
+enum ErrorType {
+  EMPTY_INPUTS,
+  INVALID_INPUT,
+  INVALID_CARD_LENGTH,
+}
