@@ -1,3 +1,6 @@
+import 'package:account_app/data/repository/transaction_repository.dart';
+import 'package:account_app/di/setup.dart';
+import 'package:account_app/model/transaction.dart';
 import 'package:account_app/model/creditCard.dart';
 import 'package:account_app/presenter/provider/credit_card_provider.dart';
 import 'package:account_app/widgets/credit_card_widget.dart';
@@ -9,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
+  final transactionRepository=getIt.get<TransactionRepository>();
   @override
   Widget build(BuildContext context) {
     late String creditCardNumber;
@@ -104,23 +108,25 @@ class Home extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-              child: Consumer<CreditCardProvider>(
-                builder: (context,creditCardProvider,child){
-                  final creditCards=creditCardProvider.cards;
+          Expanded(child: Consumer<CreditCardProvider>(
+            builder: (context, creditCardProvider, child) {
+              final creditCards = creditCardProvider.cards;
 
-                  return CarouselSlider(
-                    options: CarouselOptions(height: 200.0, enlargeCenterPage: true),
-                    items: creditCards.map((card) {
-                      return Builder(
-                        builder: (BuildContext context) {
-                          return CreditCardWidget(creditCard: card,);
-                        },
+              return CarouselSlider(
+                options:
+                    CarouselOptions(height: 200.0, enlargeCenterPage: true),
+                items: creditCards.map((card) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return CreditCardWidget(
+                        creditCard: card,
                       );
-                    }).toList(),
+                    },
                   );
-                },
-              )),
+                }).toList(),
+              );
+            },
+          )),
           const Row(
             children: [
               Padding(
@@ -138,11 +144,25 @@ class Home extends StatelessWidget {
             ],
           ),
           Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return TransactionWidget();
-                  }))
+              child: FutureBuilder<List<Transaction>>(
+            future: transactionRepository.decodeJsonStr(),
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Transaction>> snapshot) {
+              if(snapshot.hasData){
+                if(snapshot.data!.isNotEmpty){
+                  return ListView.builder(
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (context, index) {
+                        return TransactionWidget(transaction: snapshot.data![index],);
+                      });
+                }else{
+                  return Text("Nothing to show");
+                }
+              }else{
+                return Text("Nothing to show");
+              }
+            },
+          ))
         ],
       ),
     );

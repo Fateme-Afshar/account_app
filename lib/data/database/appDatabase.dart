@@ -10,7 +10,4 @@ class AppDatabase {
 
   static Future<Box<CreditCard>> initialCreditCardBox() async =>
       await Hive.openBox<CreditCard>(CreditCardSchema.cardBoxName);
-
-  static Future<Box<Transaction>> initialTransactionBox() async =>
-      await Hive.openBox<Transaction>(TransactionSchema.transactionBoxName);
 }

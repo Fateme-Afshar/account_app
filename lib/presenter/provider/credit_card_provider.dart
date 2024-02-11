@@ -1,5 +1,5 @@
 import 'package:account_app/model/creditCard.dart';
-import 'package:account_app/presenter/provider/credit_card_repository.dart';
+import 'package:account_app/data/repository/credit_card_repository.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../di/setup.dart';

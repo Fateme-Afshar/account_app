@@ -1,16 +1,11 @@
 import 'dart:convert';
 
-import 'package:account_app/data/database/schema.dart';
-import 'package:hive/hive.dart';
-
-
 Transaction transactionFromJson(String str) =>
     Transaction.fromJson(json.decode(str));
 
 String transactionToJson(Transaction data) => json.encode(data.toJson());
 
-@HiveType(typeId: TransactionSchema.transactionTypeId)
-class Transaction extends HiveObject {
+class Transaction {
   Transaction({
     this.id,
     this.title,
@@ -31,20 +26,13 @@ class Transaction extends HiveObject {
     isIncrease = json['isIncrease'];
   }
 
-  @HiveField(0)
   num? id;
-  @HiveField(1)
   String? title;
-  @HiveField(2)
   String? content;
-  @HiveField(3)
   num? amount;
-  @HiveField(4)
   String? date;
-  @HiveField(5)
   String? image;
-  @HiveField(6)
-  bool? isIncrease;
+  bool? isIncrease=false;
 
   Transaction copyWith({
     num? id,
@@ -53,7 +41,7 @@ class Transaction extends HiveObject {
     num? amount,
     String? date,
     String? image,
-    bool? isIncrease,
+    bool? isIncrease=false,
   }) =>
       Transaction(
         id: id ?? this.id,
